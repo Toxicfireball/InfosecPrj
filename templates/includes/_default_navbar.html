@@ -1,0 +1,61 @@
+<style>
+
+
+
+</style>
+
+
+
+<nav class="navbar navbar-expand-lg navbar-dark" id="navbar">
+    <div class="container-fluid">
+        <!-- Brand/logo -->
+        <a class="navbar-brand" href="/">
+            <img src="{{ url_for('static',filename='images/NYP.jpg') }}" alt="" style="width:100px">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="main_nav">
+
+            <!-- Links -->
+            <ul class="navbar-nav">
+
+                <li class="nav-item">
+                    {% if forumactive %}
+                    <a class="nav-link active" href="/Post">Forum</a>
+                    {% else %}
+                    <a class="nav-link" href="/Post">Forum</a>
+                    {% endif %}
+                </li>
+                <li class="nav-item">
+                    {% if consultactive %}
+                    <a class="nav-link active" href="/consultatioPg1">Announcment Board</a>
+                    {% else %}
+                    <a class="nav-link" href="/consultatioPg1">Announcment Board</a>
+                    {% endif %}
+                </li>
+                <li class="nav-item">
+                    {% if contactactive %}
+                    <a class="nav-link active" href="/about">About us </a>
+                    {% else %}
+                    <a class="nav-link" href="/about">About Us</a>
+                    {% endif %}
+                </li>
+            </ul>
+
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item dropdown main-nav-icons">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i
+                            class="fas fa-user-circle fa-lg"></i> Account</a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a class="dropdown-item" href="/login"><i class="fas fa-sign-in-alt"></i> Login </a></li>
+                        <li><a class="dropdown-item" href="/signup"><i class="fas fa-user-plus"></i> Sign Up </a></li>
+                    </ul>
+                </li>
+                <li class="nav-item main-nav-icons"><a class="nav-link navbar-dark" href="/cart"><i
+                            class="fas fa-shopping-cart fa-lg"></i> Cart{% if "cart" in session %}<span class="badge">{{ session["cart"]|length }}</span>{% endif %}</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>

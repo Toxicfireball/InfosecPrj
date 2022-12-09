@@ -1,0 +1,232 @@
+{% if current_user.role == "admin" %}
+{% extends "admin_base.html" %}
+{% elif current_user.is_authenticated %}
+{% extends "user_base.html" %}
+{% else %}
+{% extends "default_base.html" %}
+{% endif %}
+{% block head %}
+<link rel="stylesheet" href="static/CSS/cookiealert.css">{% endblock %}
+{% block title %}NYP Forums{% endblock %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+<!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
+{% if messages %}
+{% for category, message in messages %}
+<div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+
+<div class="row" style="margin-top:100px;">
+
+</div>
+
+  {% if usersession %}
+<div class="row" style="margin:100px 10px 0 10px; background:white; padding:25px; border-radius:15px;">
+  <div class="col-md text-center">
+    <h3>Loyalty pass</h3>
+    <h2 class="display-4">{{purchases}}</h2>
+  </div>
+  <div class="col-md">
+    <h2>Welcome Back {{ user }}!</h2>
+    <p>See the Forums!</p>
+  <a href="/user" class="btn btn-primary">Head to account!</a>
+  </div>
+</div>
+  {% elif staffsession %}
+
+<div class="row" style="margin:100px 10px 0 10px; background:white; padding:25px; border-radius:15px;">
+  <div class="col-md">
+    <h3>Product Sales</h3>
+
+  </div>
+  <div class="col-md">
+    <h2>Hello {{ staff }}!</h2>
+    <p>Welcome back to the website! Manage accounts!</p>
+  <a href="/staffapp/1" class="btn btn-primary">Head to staff dashboard</a>
+  </div>
+</div>
+  {% else %}
+<div class="row" style="margin:100px 10px 0 10px; background:white; padding:25px; border-radius:15px;">
+  <div class="col-md" style="background-image:url(static/images/join-us.jpeg); background-size:contain;background-position:center; background-repeat:no-repeat;">
+    <h3>Join the discussion today!</h3>
+    <h5 class="display-6"></h5>
+  </div>
+  <div class="col-md">
+    <h2>Become A Member!</h2>
+    <p>Join our online community of over a thousand staff and student of NYP </p>
+  <a href="/signup" class="btn btn-primary">Join Us!</a>
+  </div>
+</div>
+  {% endif %}
+
+<h1 style="margin-top:100px; text-align:center;">All Articles</h1>
+<div class="row" style="margin:0 10px 0 10px; background:white; padding:25px; border-radius:15px;">
+  <div class="col-md">
+    <img src="{{url_for('static', filename='images/xuzhi/2022-01-05t223545z_1_lynxmpei040x9_rtroptp_3_health-coronavirus-usa-children.jpg')}}" alt="" width="500" height="275" id="responsive">
+  </div>
+  <div class="col-md">
+    <h2>Forum 0</h2>
+    <p>PLACEHOLDER</p>
+  <a href="/MOHnews" class="btn btn-primary">PLACEHOLDER</a>
+  </div>
+</div>
+
+<div class="row" style="margin:100px 10px 0 10px; background:white; padding:25px; border-radius:15px;">
+  <div class="col-md">
+    <h2>Forum 1</h2>
+    <p>PLACEHOLDER</p>
+  <a href="/Omni" class="btn btn-primary">Go To Post</a>
+  </div>
+  <div class="col-md">
+    <img src="{{url_for('static', filename='images/xuzhi/dsc_8144.jpg')}}" alt="" width="500" height="275" id="responsive">
+  </div>
+</div>
+
+<div class="row" style="margin:100px 10px 0 10px; background:white; padding:25px; border-radius:15px;">
+  <div class="col-md">
+    <img src="{{url_for('static', filename='images/xuzhi/vaccination_1.jpg')}}" alt="" width="500" height="275" id="responsive">
+  </div>
+  <div class="col-md">
+    <h2>Forum 2 </h2>
+    <p>PLACEHOLDER</p>
+  <a href="/Vac" class="btn btn-primary">Go To Post</a>
+  </div>
+</div>
+
+<div class="row" style="margin:100px 10px 50px 10px; background:white; padding:25px; border-radius:15px;">
+  <div class="col-md">
+    <h2>FORUM 3</h2>
+    <p>PLACEHOLDER</p>
+  <a href="/World" class="btn btn-primary">Go To Post</a>
+  </div>
+  <div class="col-md">
+    <img src="{{url_for('static', filename='images/xuzhi/france-coronavirus_4.jpg')}}" alt="" width="500" height="275" id="responsive">
+  </div>
+</div>
+<div class="row" style="margin:0 10px 0 10px; background:white; padding:25px; border-radius:15px;">
+
+  <div class="col-md">
+    <h2>FORUM 4</h2>
+    <p>PLACEHOLDER</p>
+  <a href="/MOHnews" class="btn btn-primary">PLACEHOLDER</a>
+  </div>
+</div>
+
+<div class="row" style="margin:100px 10px 0 10px; background:white; padding:25px; border-radius:15px;">
+  <div class="col-md">
+    <h2>FORUM 5</h2>
+    <p>PLACEHOLDER</p>
+  <a href="/Omni" class="btn btn-primary">PLACEHOLDER</a>
+  </div>
+
+</div>
+
+<div class="row" style="margin:100px 10px 0 10px; background:white; padding:25px; border-radius:15px;">
+
+  <div class="col-md">
+    <h2>FORUM</h2>
+    <p>PLACEHOLDER</p>
+  <a href="/Vac" class="btn btn-primary">PLACEHOLDER</a>
+  </div>
+</div>
+
+<div class="row" style="margin:100px 10px 50px 10px; background:white; padding:25px; border-radius:15px;">
+  <div class="col-md">
+    <h2>FORUM</h2>
+    <p>PLACEHOLDER</p>
+  <a href="/World" class="btn btn-primary">PLACEHOLDER</a>
+  </div>
+  <div class="col-md">
+    <img src="{{url_for('static', filename='images/xuzhi/ttsh-emergency-department-covid-19-12.jpg')}}" alt="" width="500" height="275" id="responsive">
+  </div>
+</div>
+</div>
+
+
+<!-- COOKIES -->
+<!--https://lioshi.github.io/Bootstrap-Cookie-Alert/-->
+<div class="alert text-center cookiealert" role="alert">
+    <b>Do you like cookies?</b> &#x1F36A; We use cookies to ensure you get the best experience on our website. <a
+        href="http://cookiesandyou.com/" target="_blank">Learn more</a>
+
+    <button type="button" class="btn btn-primary btn-sm acceptcookies" aria-label="Close">
+        I agree
+    </button>
+</div>
+<!-- /COOKIES -->
+
+{% endblock %}
+{% block scripts %}
+<script crossorigin="anonymous" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+  src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{{ url_for('static',filename='js/common.js') }}"></script>
+<script>
+  var ctx = document.getElementById("lineChart").getContext("2d");
+  var lineChart = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: {{ labels | safe }},
+  datasets: [
+    {
+      label: "Data points",
+      data: {{ values | safe }},
+    fill: false,
+    borderColor: "rgb(75,192,192)",
+    lineTension: 0.1
+
+        }
+  ],
+    },
+  options: {
+    responsive: true
+  }
+
+    });
+
+  var slideIndex = 1;
+  showSlides(slideIndex);
+
+  function plusSlides(n) {
+    showSlides(slideIndex += n);
+  }
+
+  function currentSlide(n) {
+    showSlides(slideIndex = n);
+  }
+
+  function showSlides(n) {
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+    var dots = document.getElementsByClassName("demo");
+    var captionText = document.getElementById("caption");
+    if (n > slides.length) { slideIndex = 1 }
+    if (n < 1) { slideIndex = slides.length }
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].className += " active";
+    captionText.innerHTML = dots[slideIndex - 1].alt;
+  }
+
+  $('#shrinkMe').click(function () { // or any other event
+    $(this).addClass('shrink');
+  });
+
+</script>
+{% endblock %}
+
