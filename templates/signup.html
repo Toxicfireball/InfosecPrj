@@ -52,7 +52,7 @@
 
                     </div>
                     <div class="col-12">
-                        {{ render_field(form.email, class="form-control" , placeholder="example@email.com") }}
+                        {{ render_field(form.NYPaccount, class="form-control" , placeholder="example@email.com") }}
                         {% if check_ban %}
                         <div class="text-danger"><span id="error">Email has been banned</span></div>
                         {% elif duplicated_email and check_ban == False %}
@@ -61,7 +61,7 @@
                         <!--label>Email:</label>
                             <input type="text" name="email" class="form-control" placeholder="Email"-->
 
-                        {% for error in form.email.errors %}
+                        {% for error in form.NYPaccount.errors %}
                         <div class="alert alert-warning alert-dismissible fade show" role="alert">
                             {{ error }}
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>

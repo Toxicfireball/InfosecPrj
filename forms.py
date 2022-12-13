@@ -28,9 +28,8 @@ def length(min=-1, max=-1):
     return _length
 
 
-
 class LoginForm(FlaskForm):
-    username = StringField(validators=[InputRequired(), Email(), Length(1, 64)])
+    email = StringField(validators=[InputRequired(), Email(), Length(1, 64)])
     password = PasswordField(validators=[InputRequired(), Length(8, 72)])
 
 

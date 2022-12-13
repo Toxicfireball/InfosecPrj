@@ -46,11 +46,14 @@ import pyqrcode
 
 from cryptography.fernet import Fernet
 
-app = create_app()
-
-
 
 @login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+
+app = create_app()
+
 
 @app.route("/", methods=["GET", "POST"])
 def home():
@@ -67,7 +70,7 @@ def login():
 
     if form.validate_on_submit():
         try:
-            user = User.query.filter_by(email=form.username.data.lower()).first()
+            user = User.query.filter_by(NYPaccount=form.email.data.lower()).first()
             if check_password_hash(user.password, form.password.data):
                 login_user(user)
                 return redirect(url_for('home'))
@@ -90,32 +93,11 @@ def signup():
             username = form.username.data
             NYPaccount = form.NYPaccount.data
             password = form.password.data
-            ALLOWED_DOMAIN = ['nyp.edu.sg']
-            Account_Regex = re.compile('\d\d\d\d\d\d[A-Za-z]')
-            Code  = str(NYPaccount[0:7])
-            if re.match(Account_Regex,Code):
-                placeholder = True
-            else:
-                raise ValidationError
 
-            excluded_chars = "*?!'^+%&/()=}][{$#"
+            if True:
 
-
-
-
-            if excluded_chars in username:
-                appointment = False
-                raise ValidationError
-
-            else:
-                appintment = True
-
-
-            consultstate = False
-            if appointment == True:
-
-              newuser = User(username=username, email=NYPaccount, password=bcrypt.generate_password_hash(password),
-                           consultstate=consultstate, pfpfilename='default.png', failedaccess = 0)
+              newuser = User(username=username, NYPaccount=NYPaccount, password=bcrypt.generate_password_hash(password),
+                             consultstate=False, pfpfilename='default.png', failed_access=0)
 
               db.session.add(newuser)
               db.session.commit()
