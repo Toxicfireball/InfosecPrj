@@ -1,8 +1,8 @@
-<nav class="navbar navbar-expand-lg navbar-light" id="navbar">
+<nav class="navbar navbar-expand-lg navbar-dark" id="navbar">
     <div class="container-fluid">
         <!-- Brand/logo -->
         <a class="navbar-brand" href="/">
-            <img src="{{ url_for('static',filename='images/logo.png') }}" alt="DoctorOnTheGo" style="width:100px">
+            <img src="{{ url_for('static',filename='images/NYP.jpg') }}" alt="" style="width:100px">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav"
             aria-expanded="false" aria-label="Toggle navigation">
@@ -13,38 +13,31 @@
             <!-- Links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    {% if storeactive %}
-                    <a class="nav-link active" href="/store">Forums</a>
+                    {% if forumactive %}
+                    <a class="nav-link active" href="/Post">Forum</a>
                     {% else %}
-                    <a class="nav-link" href="/store">Forums</a>
-                    {% endif %}
-                </li>
-                <li class="nav-item">
-                    {% if newsactive %}
-                    <a class="nav-link active" href="/News">Announcment Board </a>
-                    {% else %}
-                    <a class="nav-link" href="/News">Announcment Board</a>
+                    <a class="nav-link" href="/Post">Forum</a>
                     {% endif %}
                 </li>
                 <li class="nav-item">
                     {% if consultactive %}
-                    <a class="nav-link active" href="/consultatioPg1">Consultation</a>
+                    <a class="nav-link active" href="/consultatioPg1">Announcment Board</a>
                     {% else %}
-                    <a class="nav-link" href="/consultatioPg1">Consultation</a>
+                    <a class="nav-link" href="/consultatioPg1">Announcment Board</a>
                     {% endif %}
                 </li>
                 <li class="nav-item">
                     {% if contactactive %}
-                    <a class="nav-link active" href="/help">Help</a>
+                    <a class="nav-link active" href="/about">About us </a>
                     {% else %}
-                    <a class="nav-link" href="/help">Help</a>
+                    <a class="nav-link" href="/about">About Us</a>
                     {% endif %}
                 </li>
             </ul>
 
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item dropdown main-nav-icons">
-                    <a class="nav-link text-black dropdown-toggle" href="#" data-bs-toggle="dropdown"><img style="width:30px;height:30px;border-radius: 10px;" src="{{ av }}" alt="pfp"> {{ user }}</a>
+                    <a class="nav-link text-black dropdown-toggle" href="#" data-bs-toggle="dropdown"><img style="width:30px;height:30px;border-radius: 10px;" src="static/uploads/{{ current_user.pfpfilename }}" alt="pfp"> {{ current_user.username }}</a>
                     <ul class="dropdown-menu dropdown-menu-right">
                         <li><a class="dropdown-item" href="/user"><i class="fas fa-cogs"></i> Account Settings</a></li>
                         <li><a class="dropdown-item" style="color:red;" href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>

@@ -196,7 +196,7 @@ def logout():
 def user():
     form = EmptyForm()
 
-    return render_template('user/loggedin/useraccount.html', name=current_user, form=form)
+    return render_template('useraccount.html', name=current_user, form=form)
 
 
 """
