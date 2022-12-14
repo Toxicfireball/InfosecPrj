@@ -121,6 +121,9 @@ class PostForm(FlaskForm):
     ])
 
 
+class RestoreForm(FlaskForm):
+    Chosen_File = DateField(validators= [InputRequired()],format='%Y-%m-%d')
+
 
 class AccountListSearchForm(FlaskForm):
     search = StringField("")
