@@ -68,88 +68,21 @@
   {% endif %}
 
 <h1 style="margin-top:100px; text-align:center;">All Articles</h1>
+
+{% for posted,i in zip(queried,lis) %}
+
 <div class="row" style="margin:0 10px 0 10px; background:white; padding:25px; border-radius:15px;">
   <div class="col-md">
-    <img src="{{url_for('static', filename='images/xuzhi/2022-01-05t223545z_1_lynxmpei040x9_rtroptp_3_health-coronavirus-usa-children.jpg')}}" alt="" width="500" height="275" id="responsive">
+     <img src="data:;base64,{{ i }}" alt="" width="500" height="275" id="responsive"/>
   </div>
   <div class="col-md">
-    <h2>Forum 0</h2>
-    <p>PLACEHOLDER</p>
+    <h2>{{ posted.Post_Name }}</h2>
+    <p>{{ posted.content }}</p>
   <a href="/MOHnews" class="btn btn-primary">PLACEHOLDER</a>
   </div>
 </div>
 
-<div class="row" style="margin:100px 10px 0 10px; background:white; padding:25px; border-radius:15px;">
-  <div class="col-md">
-    <h2>Forum 1</h2>
-    <p>PLACEHOLDER</p>
-  <a href="/Omni" class="btn btn-primary">Go To Post</a>
-  </div>
-  <div class="col-md">
-    <img src="{{url_for('static', filename='images/xuzhi/dsc_8144.jpg')}}" alt="" width="500" height="275" id="responsive">
-  </div>
-</div>
-
-<div class="row" style="margin:100px 10px 0 10px; background:white; padding:25px; border-radius:15px;">
-  <div class="col-md">
-    <img src="{{url_for('static', filename='images/xuzhi/vaccination_1.jpg')}}" alt="" width="500" height="275" id="responsive">
-  </div>
-  <div class="col-md">
-    <h2>Forum 2 </h2>
-    <p>PLACEHOLDER</p>
-  <a href="/Vac" class="btn btn-primary">Go To Post</a>
-  </div>
-</div>
-
-<div class="row" style="margin:100px 10px 50px 10px; background:white; padding:25px; border-radius:15px;">
-  <div class="col-md">
-    <h2>FORUM 3</h2>
-    <p>PLACEHOLDER</p>
-  <a href="/World" class="btn btn-primary">Go To Post</a>
-  </div>
-  <div class="col-md">
-    <img src="{{url_for('static', filename='images/xuzhi/france-coronavirus_4.jpg')}}" alt="" width="500" height="275" id="responsive">
-  </div>
-</div>
-<div class="row" style="margin:0 10px 0 10px; background:white; padding:25px; border-radius:15px;">
-
-  <div class="col-md">
-    <h2>FORUM 4</h2>
-    <p>PLACEHOLDER</p>
-  <a href="/MOHnews" class="btn btn-primary">PLACEHOLDER</a>
-  </div>
-</div>
-
-<div class="row" style="margin:100px 10px 0 10px; background:white; padding:25px; border-radius:15px;">
-  <div class="col-md">
-    <h2>FORUM 5</h2>
-    <p>PLACEHOLDER</p>
-  <a href="/Omni" class="btn btn-primary">PLACEHOLDER</a>
-  </div>
-
-</div>
-
-<div class="row" style="margin:100px 10px 0 10px; background:white; padding:25px; border-radius:15px;">
-
-  <div class="col-md">
-    <h2>FORUM</h2>
-    <p>PLACEHOLDER</p>
-  <a href="/Vac" class="btn btn-primary">PLACEHOLDER</a>
-  </div>
-</div>
-
-<div class="row" style="margin:100px 10px 50px 10px; background:white; padding:25px; border-radius:15px;">
-  <div class="col-md">
-    <h2>FORUM</h2>
-    <p>PLACEHOLDER</p>
-  <a href="/World" class="btn btn-primary">PLACEHOLDER</a>
-  </div>
-  <div class="col-md">
-    <img src="{{url_for('static', filename='images/xuzhi/ttsh-emergency-department-covid-19-12.jpg')}}" alt="" width="500" height="275" id="responsive">
-  </div>
-</div>
-</div>
-
+{% endfor %}
 
 <!-- COOKIES -->
 <!--https://lioshi.github.io/Bootstrap-Cookie-Alert/-->
