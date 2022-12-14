@@ -60,19 +60,18 @@ app = create_app()
 def print_date_time():
     print(time.strftime("%A, %d. %B %Y %I:%M:%S %p"))
 
-def backup():
-    os.system('python manage.py alchemydumps create')
-    os.system('python manage.py alchemydumps autoclean')
+ddef backup():
+    source = "database.db"
 
-scheduler = BackgroundScheduler()
-scheduler.add_job(func=backup, trigger="interval", seconds=60)
-scheduler.start()
 
-# Shut down the scheduler when exiting the app
-atexit.register(lambda: scheduler.shutdown())
-
+    dat = str(date.today())
+    destination = "/Backups"
+    path = r"<INSERT ABSOLUTE PATH>" + dat + ".db"
+    if os.path.isfile("database.db"):
+        shutil.copy(source,path)
+        print('copied', source)
 alchemydumps = AlchemyDumps(app, db)
-
+schedule.every().minute.do(backup)
 @app.route("/", methods=["GET", "POST"])
 
 def home():
