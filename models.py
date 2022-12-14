@@ -71,8 +71,16 @@ class User(UserMixin, db.Model):
 class Post(db.Model):
     __tablename__ = "Post"
     id = db.Column(db.Integer, primary_key=True)
-    Post_Name = db.Column(db.String(80), unique=False, nullable=False)
+    Post_Name = db.Column(db.String, unique=False, nullable=False)
     content = db.Column(db.String, unique=True, nullable=False)
+    data = db.Column(db.LargeBinary, nullable=False) #Actual data, needed for Download
+
+    def __repr__(self):
+          return f'Post Name: {self.Post_Name} Data: {self.data} '
+
+
+
+
 
 
 
