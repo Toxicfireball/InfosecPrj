@@ -43,8 +43,10 @@ from forms import LoginForm, SignUpForm, ChangePasswordForm, ForgotPasswordForm,
     Login2Form, AccountListSearchForm, PostForm
 from models import User, Post
 import pyqrcode
-
+import time, os, base64, atexit
 from cryptography.fernet import Fernet
+from apscheduler.schedulers.background import BackgroundScheduler
+from flask_alchemydumps import AlchemyDumps
 
 
 @login_manager.user_loader
@@ -68,7 +70,6 @@ scheduler.start()
 
 # Shut down the scheduler when exiting the app
 atexit.register(lambda: scheduler.shutdown())
-app = create_app()
 
 alchemydumps = AlchemyDumps(app, db)
 
@@ -77,14 +78,15 @@ alchemydumps = AlchemyDumps(app, db)
 def home():
 
     posts = Post.query.all()
-    queried = Post.query.order_by(and_(Post.id.desc())).limit(5).all()
+    queried = Post.query.order_by((Post.id.desc())).limit(5).all()
     lis = []
     for i in queried:
           image = base64.b64encode(i.data).decode('ascii')
           lis.append(image)
 
 
-    return render_template("home.html", queried = queried, render_picture = render_picture, data = list, lis = lis, zip = zip)
+    return render_template("home.html", queried = queried, data = list, lis = lis, zip = zip)
+# render picture=render_picture
 
 
 
@@ -197,6 +199,7 @@ def user():
     return render_template('user/loggedin/useraccount.html', name=current_user, form=form)
 
 
+"""
 @app.route('/Post', methods=['GET', 'POST'])
 def upload():
     form = PostForm()
@@ -207,6 +210,7 @@ def upload():
         return redirect(url_for('upload'))
 
     return render_template('Post.html', form=form)
+    """
 
 
 
