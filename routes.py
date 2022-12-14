@@ -56,8 +56,19 @@ app = create_app()
 
 
 @app.route("/", methods=["GET", "POST"])
+
 def home():
-    return render_template("home.html")
+
+    posts = Post.query.all()
+    queried = Post.query.order_by(and_(Post.id.desc())).limit(5).all()
+    lis = []
+    for i in queried:
+          image = base64.b64encode(i.data).decode('ascii')
+          lis.append(image)
+
+
+    return render_template("home.html", queried = queried, render_picture = render_picture, data = list, lis = lis, zip = zip)
+
 
 
 @app.route('/login' , methods=["GET", "POST"])
@@ -127,6 +138,32 @@ def signup():
             flash(f"An error occured !", "danger")
 
     return render_template('signup.html', form=form)
+
+
+
+@app.route('/Post', methods=['GET', 'POST'])
+def upload():
+    form = PostForm()
+
+    if form.validate_on_submit():
+        print("I'm here")
+
+        file = request.files['inputFile']
+        data = file.read()
+        postname = form.Post_Name.data
+        postname = str(postname)
+        content = form.Post_Description.data
+        content = str(content)
+        Postform  = Post(Post_Name = postname, content = content, data=data)
+        db.session.add(Postform)
+        db.session.commit()
+
+
+        return redirect(url_for('home'))
+    else:
+        print("here")
+
+    return render_template('post.html', form=form)
 
 @app.route("/logout")
 @login_required
