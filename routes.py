@@ -59,19 +59,31 @@ app = create_app()
 
 def print_date_time():
     print(time.strftime("%A, %d. %B %Y %I:%M:%S %p"))
-
-ddef backup():
+def backup():
     source = "database.db"
 
 
     dat = str(date.today())
     destination = "/Backups"
-    path = r"<INSERT ABSOLUTE PATH>" + dat + ".db"
-    if os.path.isfile("database.db"):
-        shutil.copy(source,path)
-        print('copied', source)
-alchemydumps = AlchemyDumps(app, db)
-schedule.every().minute.do(backup)
+    path = r"<ABSOLUTE PATH>" + dat + ".db"
+
+    shutil.copy(source,path)
+    print('copied', source)
+
+
+
+scheduler = BackgroundScheduler()
+scheduler.add_job(func=backup, trigger="interval", seconds=60)
+scheduler.start()
+
+# Shut down the scheduler when exiting the app
+atexit.register(lambda: scheduler.shutdown())
+
+
+app = create_app()
+
+
+
 @app.route("/", methods=["GET", "POST"])
 
 def home():
@@ -197,19 +209,62 @@ def user():
 
     return render_template('useraccount.html', name=current_user, form=form)
 
+@app.route('/Restore', methods = ["GET", "POST"])
+def restore():
 
-"""
+   form = RestoreForm()
+   pa = r"<ABSOLUTE PATH FOR FOLDER>"
+   path = r"ABSOLUTE PATH FOR FILE>"
+   content = os.listdir(pa)
+   if form.validate_on_submit():
+
+      filename =  str(form.Chosen_File.data)
+      print(filename)
+
+      source = r"<ABSOLUTE PATH FOR TARGET>" + filename + ".db"
+
+
+      if os.path.isfile("database.db"):
+          shutil.copy(source,path)
+          print('copied', source)
+      return redirect(url_for('home'))
+
+
+   return render_template("Restore.html", form=  form, content = content)
+
+
+
+
 @app.route('/Post', methods=['GET', 'POST'])
 def upload():
     form = PostForm()
 
     if form.validate_on_submit():
-        filename = PostForm(form.file.data.filename)
-        form.file.data.save('uploads/' + filename)
-        return redirect(url_for('upload'))
+        excluded_chars = "*?!'^+%&/()=}][{$#"
+        print("I'm here")
+        file = request.files['inputFile']
+        data = file.read()
+        if excluded_chars in form.Post_Name.data:
+            raise ValidationError
 
-    return render_template('Post.html', form=form)
-    """
+        if excluded_chars in form.Post_Description.data:
+            raise ValidationError
+
+        postname = form.Post_Name.data
+        postname = str(postname)
+        content = form.Post_Description.data
+        content = str(content)
+
+        Postform  = Post(Post_Name = postname, content = content, data=data)
+        db.session.add(Postform)
+        db.session.commit()
+
+
+        return redirect(url_for('home'))
+    else:
+        print("here")
+
+    return render_template('post.html', form=form)
 
 
 
