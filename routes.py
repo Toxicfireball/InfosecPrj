@@ -55,6 +55,23 @@ def load_user(user_id):
 app = create_app()
 
 
+def print_date_time():
+    print(time.strftime("%A, %d. %B %Y %I:%M:%S %p"))
+
+def backup():
+    os.system('python manage.py alchemydumps create')
+    os.system('python manage.py alchemydumps autoclean')
+
+scheduler = BackgroundScheduler()
+scheduler.add_job(func=backup, trigger="interval", seconds=60)
+scheduler.start()
+
+# Shut down the scheduler when exiting the app
+atexit.register(lambda: scheduler.shutdown())
+app = create_app()
+
+alchemydumps = AlchemyDumps(app, db)
+
 @app.route("/", methods=["GET", "POST"])
 
 def home():
