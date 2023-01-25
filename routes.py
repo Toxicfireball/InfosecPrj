@@ -170,7 +170,7 @@ def signup():
     return render_template('signup.html', form=form)
 
 
-
+"""
 @app.route('/Post', methods=['GET', 'POST'])
 def upload():
     form = PostForm()
@@ -194,6 +194,8 @@ def upload():
         print("here")
 
     return render_template('post.html', form=form)
+"""
+
 
 @app.route("/logout")
 @login_required
